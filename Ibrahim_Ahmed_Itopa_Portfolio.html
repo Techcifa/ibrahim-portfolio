@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ibrahim Ahmed Itopa — Marketing Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:    #1849A9;
+    --blue-lt: #EFF6FF;
+    --blue-md: #BFDBFE;
+    --ink:     #0A0F1E;
+    --body:    #1E293B;
+    --muted:   #64748B;
+    --rule:    #E2E8F0;
+    --white:   #FFFFFF;
+    --cream:   #F8FAFC;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--body);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ─────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; font-size: 18px;
+    color: var(--ink); letter-spacing: -0.3px;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 14px; font-weight: 500;
+    color: var(--muted); letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+
+  /* ── HERO ────────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 48px 80px;
+    gap: 72px;
+    background: linear-gradient(135deg, #F0F7FF 0%, #FFFFFF 60%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #BFDBFE 0%, transparent 70%);
+    opacity: 0.5;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--blue-lt); border: 1px solid var(--blue-md);
+    color: var(--blue); font-size: 12px; font-weight: 600;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  .hero-tag span { width: 6px; height: 6px; background: var(--blue); border-radius: 50%; display: block; animation: pulse 2s infinite; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 5vw, 68px);
+    font-weight: 900; line-height: 1.05;
+    color: var(--ink); letter-spacing: -1.5px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--blue);
+  }
+
+  .hero-sub {
+    font-size: 17px; color: var(--muted);
+    max-width: 460px; line-height: 1.75;
+    margin-bottom: 36px;
+  }
+
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--blue); color: var(--white);
+    padding: 13px 28px; border-radius: 8px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: #1339A0; transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: transparent; color: var(--body);
+    padding: 13px 28px; border-radius: 8px;
+    text-decoration: none; font-weight: 500; font-size: 15px;
+    border: 1.5px solid var(--rule);
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-1px); }
+
+  /* Hero right — photo */
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hero-photo-wrapper {
+    position: relative;
+    width: 360px;
+    height: 420px;
+    opacity: 0;
+    transform: translateX(30px);
+    animation: slideIn 0.7s 0.3s forwards;
+  }
+
+  /* Decorative ring behind photo */
+  .hero-photo-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -18px; right: -18px;
+    width: 100%; height: 100%;
+    border: 2.5px solid var(--blue-md);
+    border-radius: 24px;
+    z-index: 0;
+  }
+
+  /* Decorative filled accent corner */
+  .hero-photo-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: -12px; left: -12px;
+    width: 80px; height: 80px;
+    background: var(--blue-lt);
+    border-radius: 50%;
+    z-index: 0;
+    border: 3px solid var(--blue-md);
+  }
+
+  .hero-photo {
+    position: relative; z-index: 1;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 24px 60px rgba(24,73,169,0.18), 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  /* Floating status badge */
+  .hero-photo-badge {
+    position: absolute;
+    bottom: 24px; right: -20px;
+    z-index: 2;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 12px 18px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+    display: flex; align-items: center; gap: 10px;
+    opacity: 0;
+    animation: slideIn 0.6s 0.8s forwards;
+  }
+
+  .hero-photo-badge .badge-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #22C55E;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
+    animation: pulse 2s infinite;
+  }
+
+  .hero-photo-badge .badge-text {
+    font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.3;
+  }
+
+  .hero-photo-badge .badge-sub {
+    font-size: 11px; color: var(--muted); font-weight: 400;
+  }
+
+  @keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Stat cards — now in a horizontal strip below hero text */
+  .hero-stats {
+    display: flex; gap: 16px; flex-wrap: wrap; margin-top: 40px;
+  }
+
+  .stat-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    position: relative; overflow: hidden;
+    opacity: 0; transform: translateY(16px);
+    animation: fadeUp 0.6s forwards;
+    flex: 1; min-width: 160px;
+  }
+  .stat-card:nth-child(1) { animation-delay: 0.5s; }
+  .stat-card:nth-child(2) { animation-delay: 0.65s; }
+  .stat-card:nth-child(3) { animation-delay: 0.8s; }
+
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--blue);
+    border-radius: 0 0 0 14px;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 900;
+    color: var(--blue); line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label { font-size: 13px; color: var(--muted); font-weight: 400; }
+  .stat-context { font-size: 12px; color: var(--body); font-weight: 500; margin-top: 3px; }
+
+  /* ── SECTION WRAPPER ─────────────────────────────────── */
+  section { padding: 96px 48px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--blue);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--blue-md); max-width: 48px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 800; color: var(--ink);
+    letter-spacing: -0.8px; line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    font-size: 16px; color: var(--muted);
+    max-width: 580px; line-height: 1.75;
+    margin-bottom: 56px;
+  }
+
+  /* ── ABOUT ───────────────────────────────────────────── */
+  #about { background: var(--cream); }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 56px; align-items: start;
+  }
+
+  .about-text p {
+    font-size: 16px; color: var(--body);
+    line-height: 1.85; margin-bottom: 20px;
+  }
+
+  .about-text p strong { color: var(--ink); }
+
+  .about-pills { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .pill {
+    background: var(--white); border: 1px solid var(--rule);
+    border-radius: 100px; padding: 7px 16px;
+    font-size: 13px; font-weight: 500; color: var(--body);
+  }
+
+  .about-highlights { display: flex; flex-direction: column; gap: 20px; }
+
+  .highlight-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 22px 24px;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .highlight-card:hover { box-shadow: 0 8px 30px rgba(24,73,169,0.08); transform: translateY(-2px); }
+
+  .highlight-icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: var(--blue-lt); display: flex; align-items: center;
+    justify-content: center; margin-bottom: 12px; font-size: 18px;
+  }
+
+  .highlight-card h4 { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+  .highlight-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* ── WORK SAMPLES ────────────────────────────────────── */
+  #work { background: var(--white); }
+
+  .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+  .work-card {
+    border: 1px solid var(--rule); border-radius: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.25s, transform 0.25s;
+    background: var(--white);
+  }
+  .work-card:hover { box-shadow: 0 12px 40px rgba(24,73,169,0.1); transform: translateY(-4px); }
+
+  .work-thumb {
+    height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px;
+    position: relative; overflow: hidden;
+  }
+
+  .work-thumb-1 { background: linear-gradient(135deg, #DBEAFE, #EFF6FF); }
+  .work-thumb-2 { background: linear-gradient(135deg, #D1FAE5, #ECFDF5); }
+  .work-thumb-3 { background: linear-gradient(135deg, #FEF3C7, #FFFBEB); }
+  .work-thumb-4 { background: linear-gradient(135deg, #FCE7F3, #FDF2F8); }
+  .work-thumb-5 { background: linear-gradient(135deg, #E0E7FF, #EEF2FF); }
+  .work-thumb-6 { background: linear-gradient(135deg, #F0FDF4, #DCFCE7); }
+
+  .work-thumb-label {
+    position: absolute; bottom: 12px; left: 12px;
+    background: rgba(255,255,255,0.9);
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--blue);
+    padding: 4px 10px; border-radius: 100px;
+  }
+
+  .work-body { padding: 22px 24px; }
+  .work-body h3 { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+  .work-body p { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
+
+  .work-result {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 600; color: var(--blue);
+    background: var(--blue-lt); padding: 7px 12px;
+    border-radius: 8px; width: fit-content;
+  }
+
+  /* ── ARTICLE SAMPLE ─────────────────────────────────── */
+  #writing { background: var(--ink); color: var(--white); }
+  #writing .section-label { color: var(--blue-md); }
+  #writing .section-label::after { background: #2563EB; }
+  #writing .section-title { color: var(--white); }
+  #writing .section-sub { color: #94A3B8; }
+
+  .article-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px; padding: 48px;
+    max-width: 760px; margin: 0 auto;
+    position: relative; overflow: hidden;
+  }
+
+  .article-card::before {
+    content: '\201C';
+    position: absolute; top: -20px; left: 32px;
+    font-family: 'Playfair Display', serif;
+    font-size: 160px; color: var(--blue); opacity: 0.15;
+    line-height: 1;
+  }
+
+  .article-tag {
+    display: inline-block;
+    background: var(--blue); color: var(--white);
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 5px 12px;
+    border-radius: 100px; margin-bottom: 24px;
+  }
+
+  .article-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 800; color: var(--white);
+    line-height: 1.25; margin-bottom: 20px; letter-spacing: -0.4px;
+  }
+
+  .article-card p {
+    font-size: 16px; color: #CBD5E1; line-height: 1.85;
+    margin-bottom: 18px;
+  }
+
+  .article-card p strong { color: var(--white); }
+
+  .article-divider {
+    width: 48px; height: 3px; background: var(--blue);
+    border-radius: 2px; margin: 28px 0;
+  }
+
+  .article-meta {
+    display: flex; align-items: center; gap: 16px;
+    font-size: 13px; color: #64748B;
+  }
+
+  .article-meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ── SKILLS ──────────────────────────────────────────── */
+  #skills { background: var(--cream); }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+  .skill-group {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 16px; padding: 28px 32px;
+  }
+
+  .skill-group h4 {
+    font-size: 12px; font-weight: 700; letter-spacing: 1.8px;
+    text-transform: uppercase; color: var(--blue);
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .skill-group h4::before {
+    content: ''; width: 20px; height: 2px; background: var(--blue); border-radius: 2px;
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .skill-tag {
+    background: var(--cream); border: 1px solid var(--rule);
+    border-radius: 8px; padding: 7px 14px;
+    font-size: 13px; color: var(--body); font-weight: 500;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .skill-tag:hover { background: var(--blue-lt); border-color: var(--blue-md); color: var(--blue); }
+
+  /* ── CONTACT ─────────────────────────────────────────── */
+  #contact { background: var(--white); }
+
+  .contact-box {
+    background: linear-gradient(135deg, #EFF6FF 0%, #F0F9FF 100%);
+    border: 1px solid var(--blue-md);
+    border-radius: 24px; padding: 56px;
+    text-align: center; max-width: 680px; margin: 0 auto;
+  }
+
+  .contact-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; font-weight: 800;
+    color: var(--ink); letter-spacing: -0.6px;
+    margin-bottom: 14px;
+  }
+
+  .contact-box p { font-size: 16px; color: var(--muted); margin-bottom: 36px; }
+
+  .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+  .contact-item {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--white); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 12px 20px;
+    text-decoration: none; color: var(--body);
+    font-size: 14px; font-weight: 500;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+  .contact-item:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+
+  /* ── FOOTER ──────────────────────────────────────────── */
+  footer {
+    background: var(--ink); color: #475569;
+    text-align: center; padding: 28px;
+    font-size: 13px;
+  }
+
+  footer strong { color: #94A3B8; }
+
+  /* ── FADE IN ─────────────────────────────────────────── */
+  .fade-up {
+    opacity: 0; transform: translateY(24px);
+    animation: fadeUp 0.7s forwards;
+  }
+  .fade-up:nth-child(1) { animation-delay: 0.1s; }
+  .fade-up:nth-child(2) { animation-delay: 0.25s; }
+  .fade-up:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────────────── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+    .hero-right { margin-top: 40px; }
+    .hero-photo-wrapper { width: 280px; height: 320px; }
+    .hero-photo-badge { right: 0; bottom: -16px; }
+    .hero-stats { flex-direction: column; }
+    section { padding: 64px 24px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .work-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .article-card { padding: 32px 24px; }
+    .contact-box { padding: 36px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Ibrahim A. Itopa</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag"><span></span>Open to Opportunities</div>
+    <h1 class="fade-up">Marketing that <em>moves</em> people &amp; metrics.</h1>
+    <p class="hero-sub fade-up">I build content strategies, grow digital audiences, and translate complex ideas into compelling stories — with a specific passion for fintech and African business ecosystems.</p>
+    <div class="hero-ctas fade-up">
+      <a href="#work" class="btn-primary">See My Work ↓</a>
+      <a href="#contact" class="btn-secondary">Get in Touch</a>
+    </div>
+    <!-- Stat strip -->
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">30–50%</div>
+        <div class="stat-label">Engagement growth</div>
+        <div class="stat-context">Backup Properties — 9-month campaign</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">~40%</div>
+        <div class="stat-label">Workflow efficiency</div>
+        <div class="stat-context">Content batching &amp; repurposing</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4.18<span style="font-size:15px;color:#64748B"> /5</span></div>
+        <div class="stat-label">University CGPA</div>
+        <div class="stat-context">Published · Tissue &amp; Cell (2025)</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo-wrapper">
+      <img src="ibrahim_headshot.jpg" alt="Ibrahim Ahmed Itopa — Marketing Professional" class="hero-photo">
+      <div class="hero-photo-badge">
+        <div class="badge-dot"></div>
+        <div>
+          <div class="badge-text">Available for hire</div>
+          <div class="badge-sub">Marketing &amp; Content roles</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">About Me</div>
+    <h2 class="section-title">Research brain. Marketing heart.</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a B.Sc. Anatomy graduate from the University of Ilorin with a <strong>peer-reviewed publication in Tissue & Cell (2025)</strong> — which tells you something about how I approach problems: rigorously, with evidence, and with a clear narrative in mind.</p>
+        <p>During my NYSC service year at Backup Properties Limited, I built the company's entire digital content function from zero — content calendar, multi-platform production, scheduling, analytics, and weekly reporting. The engagement numbers moved significantly, and the workflow became 40% more efficient. All of this with no team, no budget, and no playbook.</p>
+        <p>I'm deeply interested in <strong>B2B fintech, African payments infrastructure, and how brands in this space can communicate with authority and clarity</strong> — which is why the work companies like Duplo are doing genuinely excites me.</p>
+        <div class="about-pills">
+          <span class="pill">Content Strategy</span>
+          <span class="pill">Social Media</span>
+          <span class="pill">B2B Marketing</span>
+          <span class="pill">Research & Analysis</span>
+          <span class="pill">Canva</span>
+          <span class="pill">Campaign Execution</span>
+        </div>
+      </div>
+      <div class="about-highlights">
+        <div class="highlight-card">
+          <div class="highlight-icon">📊</div>
+          <h4>Data-driven by training</h4>
+          <p>Biostatistics, research methodology, and experimental data analysis were core to my degree — I carry that rigour into how I measure and report on marketing performance.</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">✍️</div>
+          <h4>Published writer</h4>
+          <p>Co-authored a peer-reviewed journal article. I know how to write for expert audiences, meet editorial standards, and communicate complex ideas with precision.</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">🌍</div>
+          <h4>Africa-first perspective</h4>
+          <p>I understand the nuances of the African business landscape — the informal payment culture, the trust deficit in digital tools, and what it takes to build credibility in this market.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK SAMPLES -->
+<section id="work">
+  <div class="section-inner">
+    <div class="section-label">Work Samples</div>
+    <h2 class="section-title">What I've built & delivered.</h2>
+    <p class="section-sub">Selected projects spanning content strategy, social media management, research, and community marketing.</p>
+    <div class="work-grid">
+
+      <div class="work-card">
+        <div class="work-thumb work-thumb-1">
+          🗓️
+          <span class="work-thumb-label">Content Strategy</span>
+        </div>
+        <div class="work-body">
+          <h3>Social Media Content System — Backup Properties</h3>
+          <p>Designed a full content calendar, batching workflow, and multi-platform publishing system for a Lagos real estate brand with zero existing digital presence.</p>
+          <div class="work-result">📈 30–50% engagement growth</div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-thumb work-thumb-2">
+          ⚡
+          <span class="work-thumb-label">Process Design</span>
+        </div>
+        <div class="work-body">
+          <h3>Content Repurposing Framework</h3>
+          <p>Introduced an asset batching and repurposing system that enabled consistent multi-platform output while reducing production turnaround time significantly.</p>
+          <div class="work-result">⚙️ ~40% workflow efficiency gain</div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-thumb work-thumb-3">
+          🎨
+          <span class="work-thumb-label">Visual Content</span>
+        </div>
+        <div class="work-body">
+          <h3>Brand Visual Identity — Digital Assets</h3>
+          <p>Produced all social media graphics, caption copy, and short-form content using Canva, maintaining a consistent and professional brand voice across platforms.</p>
+          <div class="work-result">🖼️ Full-cycle content ownership</div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-thumb work-thumb-4">
+          🔬
+          <span class="work-thumb-label">Research & Publication</span>
+        </div>
+        <div class="work-body">
+          <h3>Peer-Reviewed Research — Tissue & Cell Journal</h3>
+          <p>Co-authored academic publication investigating plant-based immunomodulation. Led research design, data collection, statistical analysis, and full manuscript drafting.</p>
+          <div class="work-result">📄 Published 2025 · Tissue & Cell</div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-thumb work-thumb-5">
+          🤝
+          <span class="work-thumb-label">Community Marketing</span>
+        </div>
+        <div class="work-body">
+          <h3>Community Health Outreach — Heritage Foundation</h3>
+          <p>Led planning and coordination across multiple community programmes — developing structured project plans, coordinating volunteers, and managing stakeholder engagement.</p>
+          <div class="work-result">👥 Multiple campaigns delivered on time</div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-thumb work-thumb-6">
+          📊
+          <span class="work-thumb-label">Analytics & Reporting</span>
+        </div>
+        <div class="work-body">
+          <h3>Weekly Performance Tracking & Reporting</h3>
+          <p>Built and maintained a performance monitoring routine — tracking engagement metrics, identifying trends, and feeding insights back into content strategy weekly.</p>
+          <div class="work-result">📊 Data-led content decisions</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WRITING SAMPLE -->
+<section id="writing">
+  <div class="section-inner">
+    <div class="section-label">Writing Sample</div>
+    <h2 class="section-title" style="color:white">Fintech content.<br>African context.</h2>
+    <p class="section-sub">An original article demonstrating my understanding of B2B payments in Africa — the market Duplo is transforming.</p>
+
+    <div class="article-card">
+      <span class="article-tag">Original Article</span>
+      <h3>Why Nigerian Businesses Still Pay Offline — And What's Finally Changing</h3>
+      <p>Walk into any busy market in Lagos or Kano today and you'll notice something that would puzzle a Silicon Valley investor: <strong>cash is still king</strong>. Vendors collecting payments in envelopes. Finance teams reconciling transactions manually. Business owners spending hours every week on payment administration that should take minutes.</p>
+      <div class="article-divider"></div>
+      <p>This isn't a technology problem. Nigeria has some of the most sophisticated mobile money infrastructure on the continent. The problem is <strong>trust, behaviour, and B2B complexity</strong>. Consumer payments digitised quickly because the risk per transaction is low and the habit formed fast. But business payments are different — they involve approval chains, multi-vendor reconciliation, spend controls, and accountability structures that cash has served, imperfectly, for decades.</p>
+      <p>The shift is happening now for three reasons. First, <strong>regulatory pressure</strong> from the CBN is making informal payment trails riskier. Second, <strong>a new generation of founders</strong> who grew up paying for everything on their phones are now running businesses and expecting the same simplicity in B2B contexts. Third, platforms like Duplo are solving the right problem — not just moving money, but giving finance teams control, visibility, and automation in one place.</p>
+      <p><strong>The businesses that adopt structured payment infrastructure now won't just save time — they'll build the financial credibility that attracts investors, retains vendors, and scales cleanly.</strong> Offline payment culture isn't stubbornness. It's a gap waiting for the right product to close it.</p>
+      <div class="article-meta">
+        <span>✍️ Ibrahim Ahmed Itopa</span>
+        <span>📅 2026</span>
+        <span>⏱️ 3 min read</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">Skills</div>
+    <h2 class="section-title">What I bring to the table.</h2>
+    <p class="section-sub">A practical mix of marketing execution, content creation, research, and cross-functional collaboration skills.</p>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4>Marketing & Campaigns</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Integrated Campaign Execution</span>
+          <span class="skill-tag">Social Media Management</span>
+          <span class="skill-tag">Content Calendar Management</span>
+          <span class="skill-tag">Email Marketing</span>
+          <span class="skill-tag">Lead Generation Support</span>
+          <span class="skill-tag">Event Coordination</span>
+          <span class="skill-tag">Community Engagement</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Content & Communication</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Copywriting & Storytelling</span>
+          <span class="skill-tag">Brand Messaging</span>
+          <span class="skill-tag">Short-Form Video</span>
+          <span class="skill-tag">Canva</span>
+          <span class="skill-tag">Scientific & Technical Writing</span>
+          <span class="skill-tag">Multi-Platform Publishing</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Research & Analytics</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Market Research</span>
+          <span class="skill-tag">Audience Analysis</span>
+          <span class="skill-tag">Competitor Research</span>
+          <span class="skill-tag">Performance Tracking</span>
+          <span class="skill-tag">Data Synthesis & Reporting</span>
+          <span class="skill-tag">Biostatistics</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Professional</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Cross-Functional Collaboration</span>
+          <span class="skill-tag">Stakeholder Engagement</span>
+          <span class="skill-tag">Project Coordination</span>
+          <span class="skill-tag">Independent Execution</span>
+          <span class="skill-tag">Fast-Paced Environments</span>
+          <span class="skill-tag">Microsoft Office Suite</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-box">
+      <h3>Let's work together.</h3>
+      <p>I'm currently open to graduate trainee and marketing associate opportunities in fintech and high-growth startups across Africa.</p>
+      <div class="contact-links">
+        <a href="mailto:techcifar@gmail.com" class="contact-item">
+          <span>✉️</span> techcifar@gmail.com
+        </a>
+        <a href="tel:+2348066767693" class="contact-item">
+          <span>📱</span> 08066767693
+        </a>
+        <a href="https://linkedin.com/in/ibrahim-ahmed-a35bab244" target="_blank" class="contact-item">
+          <span>🔗</span> LinkedIn Profile
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Ibrahim Ahmed Itopa</strong> · Marketing Associate · Lagos, Nigeria · 2026
+</footer>
+
+</body>
+</html>
